@@ -38,6 +38,8 @@ final class StatusTableViewController: LoopChartsTableViewController {
     var automaticDosingStatus: AutomaticDosingStatus!
     
     var alertPermissionsChecker: AlertPermissionsChecker!
+    
+    var glucoseStore: GlucoseStoreProtocol!
 
     var alertMuter: AlertMuter!
 
@@ -270,19 +272,20 @@ final class StatusTableViewController: LoopChartsTableViewController {
     private func setupToolbarItems() {
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let carbs = UIBarButtonItem(image: UIImage(named: "carbs"), style: .plain, target: self, action: #selector(userTappedAddCarbs))
+        let quickStats = UIBarButtonItem(image: UIImage(named: "quick-stats"), style: .plain, target: self, action: #selector(userTappedQuickStats))
         let bolus = UIBarButtonItem(image: UIImage(named: "bolus"), style: .plain, target: self, action: #selector(presentBolusScreen))
         let settings = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(onSettingsTapped))
         
-        let preMeal = createPreMealButtonItem(selected: false, isEnabled: true)
+//        let preMeal = createPreMealButtonItem(selected: false, isEnabled: true)
         let workout = createWorkoutButtonItem(selected: false, isEnabled: true)
         toolbarItems = [
             carbs,
             space,
-            preMeal,
+            workout,
             space,
             bolus,
             space,
-            workout,
+            quickStats,
             space,
             settings
         ]
@@ -297,11 +300,14 @@ final class StatusTableViewController: LoopChartsTableViewController {
         toolbarItems![4].accessibilityLabel = NSLocalizedString("Bolus", comment: "The label of the bolus entry button")
         toolbarItems![4].isEnabled = isPumpOnboarded
         toolbarItems![4].tintColor = UIColor.insulinTintColor
+        toolbarItems![6].accessibilityLabel = NSLocalizedString("Quick Stats", comment: "The label of the quick stats button")
+        toolbarItems![6].isEnabled = isPumpOnboarded
+        toolbarItems![6].tintColor = UIColor.secondaryLabel
         toolbarItems![8].accessibilityLabel = NSLocalizedString("Settings", comment: "The label of the settings button")
         toolbarItems![8].tintColor = UIColor.secondaryLabel
         
-        toolbarItems![2] = createPreMealButtonItem(selected: preMealMode == true && preMealModeAllowed, isEnabled: preMealModeAllowed)
-        toolbarItems![6] = createWorkoutButtonItem(selected: workoutMode == true && workoutModeAllowed, isEnabled: workoutModeAllowed)
+//        toolbarItems![2] = createPreMealButtonItem(selected: preMealMode == true && preMealModeAllowed, isEnabled: preMealModeAllowed)
+        toolbarItems![2] = createWorkoutButtonItem(selected: workoutMode == true && workoutModeAllowed, isEnabled: workoutModeAllowed)
     }
 
     public var basalDeliveryState: PumpManagerStatus.BasalDeliveryState? = nil {
@@ -1429,6 +1435,21 @@ final class StatusTableViewController: LoopChartsTableViewController {
         hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: navigationWrapper, action: #selector(dismissWithAnimation))
         present(navigationWrapper, animated: true)
         deviceManager.analyticsServicesManager.didDisplayBolusScreen()
+    }
+    
+    @IBAction func userTappedQuickStats() {
+        presentQuickStatsScreen()
+    }
+    
+    private func presentQuickStatsScreen() {
+        let viewModel = QuickStatsViewModel(deviceDataManager: deviceManager)
+        let hostingController = DismissibleHostingController(
+            content: QuickStatsView(viewModel: viewModel)
+        )
+        
+        let navigationWrapper = UINavigationController(rootViewController: hostingController)
+        hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: navigationWrapper, action: #selector(dismissWithAnimation))
+        present(navigationWrapper, animated: true)
     }
 
     private func createPreMealButtonItem(selected: Bool, isEnabled: Bool) -> UIBarButtonItem {

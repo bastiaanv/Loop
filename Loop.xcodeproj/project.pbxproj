@@ -401,6 +401,8 @@
 		B4E96D5D248A82A2002DABAD /* StatusBarHUDView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E96D5C248A82A2002DABAD /* StatusBarHUDView.xib */; };
 		B4F3D25124AF890C0095CE44 /* BluetoothStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3D25024AF890C0095CE44 /* BluetoothStateManager.swift */; };
 		B4FEEF7D24B8A71F00A8DF9B /* DeviceDataManager+DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FEEF7C24B8A71F00A8DF9B /* DeviceDataManager+DeviceStatus.swift */; };
+		B813C5682C9C30B400306DAF /* QuickStatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B813C5672C9C30B400306DAF /* QuickStatsViewModel.swift */; };
+		B813C56C2C9C30DC00306DAF /* QuickStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B813C56B2C9C30DC00306DAF /* QuickStatsView.swift */; };
 		C1004DF22981F5B700B8CF94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1004DF02981F5B700B8CF94 /* InfoPlist.strings */; };
 		C1004DF52981F5B700B8CF94 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1004DF32981F5B700B8CF94 /* Localizable.strings */; };
 		C1004DF82981F5B700B8CF94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1004DF62981F5B700B8CF94 /* InfoPlist.strings */; };
@@ -1325,6 +1327,8 @@
 		B4E96D5C248A82A2002DABAD /* StatusBarHUDView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusBarHUDView.xib; sourceTree = "<group>"; };
 		B4F3D25024AF890C0095CE44 /* BluetoothStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateManager.swift; sourceTree = "<group>"; };
 		B4FEEF7C24B8A71F00A8DF9B /* DeviceDataManager+DeviceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceDataManager+DeviceStatus.swift"; sourceTree = "<group>"; };
+		B813C5672C9C30B400306DAF /* QuickStatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStatsViewModel.swift; sourceTree = "<group>"; };
+		B813C56B2C9C30DC00306DAF /* QuickStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStatsView.swift; sourceTree = "<group>"; };
 		C1004DEF2981F5B700B8CF94 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1004DF12981F5B700B8CF94 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1004DF42981F5B700B8CF94 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2276,6 +2280,7 @@
 				C1AF062229426300002C1B19 /* ManualGlucoseEntryRow.swift */,
 				DDC389FD2A2C4C830066E2E8 /* GlucoseBasedApplicationFactorSelectionView.swift */,
 				DD3DBD282A33AFE9000F8B5B /* IntegralRetrospectiveCorrectionSelectionView.swift */,
+				B813C56B2C9C30DC00306DAF /* QuickStatsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2628,6 +2633,7 @@
 				1D49795724E7289700948F05 /* ServicesViewModel.swift */,
 				C174233B259BEB0F00399C9D /* ManualEntryDoseViewModel.swift */,
 				1DB619AB270BAD3D006C9D07 /* VersionUpdateViewModel.swift */,
+				B813C5672C9C30B400306DAF /* QuickStatsViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -3757,6 +3763,7 @@
 				DDC389F82A2B620B0066E2E8 /* GlucoseBasedApplicationFactorStrategy.swift in Sources */,
 				4F6663941E905FD2009E74FC /* ChartColorPalette+Loop.swift in Sources */,
 				A9F703732489BC8500C98AD8 /* CarbStore+SimulatedCoreData.swift in Sources */,
+				B813C56C2C9C30DC00306DAF /* QuickStatsView.swift in Sources */,
 				4328E0351CFC0AE100E199AA /* WatchDataManager.swift in Sources */,
 				4345E3FC21F04911009E00E5 /* UIColor+HIG.swift in Sources */,
 				1D4A3E2E2478628500FD601B /* StoredAlert+CoreDataProperties.swift in Sources */,
@@ -3794,6 +3801,7 @@
 				43F89CA322BDFBBD006BB54E /* UIActivityIndicatorView.swift in Sources */,
 				A999D40624663D18004C89D4 /* PumpManagerError.swift in Sources */,
 				437D9BA31D7BC977007245E8 /* PredictionTableViewController.swift in Sources */,
+				B813C5682C9C30B400306DAF /* QuickStatsViewModel.swift in Sources */,
 				A987CD4924A58A0100439ADC /* ZipArchive.swift in Sources */,
 				43F41C371D3BF32400C11ED6 /* UIAlertController.swift in Sources */,
 				A9CBE45C248ACC03008E7BA2 /* SettingsStore+SimulatedCoreData.swift in Sources */,
@@ -5138,6 +5146,7 @@
 				DEVELOPMENT_TEAM = "$(LOOP_DEVELOPMENT_TEAM)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Loop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5167,6 +5176,7 @@
 				DEVELOPMENT_TEAM = "$(LOOP_DEVELOPMENT_TEAM)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Loop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
