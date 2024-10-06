@@ -21,8 +21,8 @@ class RootNavigationController: UINavigationController {
         switch deeplink {
         case .carbEntry:
             statusTableViewController.presentCarbEntryScreen(nil)
-        case .preMeal:
-            statusTableViewController.togglePreMealMode()
+//        case .preMeal:
+//            statusTableViewController.togglePreMealMode()
         case .bolus:
             statusTableViewController.presentBolusScreen()
         case .customPresets:

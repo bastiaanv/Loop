@@ -1451,23 +1451,6 @@ final class StatusTableViewController: LoopChartsTableViewController {
         hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: navigationWrapper, action: #selector(dismissWithAnimation))
         present(navigationWrapper, animated: true)
     }
-
-    private func createPreMealButtonItem(selected: Bool, isEnabled: Bool) -> UIBarButtonItem {
-        let item = UIBarButtonItem(image: UIImage.preMealImage(selected: selected), style: .plain, target: self, action: #selector(premealButtonTapped(_:)))
-        item.accessibilityLabel = NSLocalizedString("Pre-Meal Targets", comment: "The label of the pre-meal mode toggle button")
-
-        if selected {
-            item.accessibilityTraits.insert(.selected)
-            item.accessibilityHint = NSLocalizedString("Disables", comment: "The action hint of the workout mode toggle button when enabled")
-        } else {
-            item.accessibilityHint = NSLocalizedString("Enables", comment: "The action hint of the workout mode toggle button when disabled")
-        }
-
-        item.tintColor = UIColor.carbTintColor
-        item.isEnabled = isEnabled
-
-        return item
-    }
     
     private func createWorkoutButtonItem(selected: Bool, isEnabled: Bool) -> UIBarButtonItem {
         let item = UIBarButtonItem(image: UIImage.workoutImage(selected: selected), style: .plain, target: self, action: #selector(toggleWorkoutMode(_:)))
@@ -1484,56 +1467,6 @@ final class StatusTableViewController: LoopChartsTableViewController {
         item.isEnabled = isEnabled
 
         return item
-    }
-
-    @IBAction func premealButtonTapped(_ sender: UIBarButtonItem) {
-        togglePreMealMode(confirm: false)
-    }
-    
-    func togglePreMealMode(confirm: Bool = true) {
-        if preMealMode == true {
-            if confirm {
-                let alert = UIAlertController(title: "Disable Pre-Meal Preset?", message: "This will remove any currently applied pre-meal preset.", preferredStyle: .alert)
-                alert.addCancelAction()
-                alert.addAction(UIAlertAction(title: "Disable", style: .destructive, handler: { [weak self] _ in
-                    self?.deviceManager.loopManager.mutateSettings { settings in
-                        settings.clearOverride(matching: .preMeal)
-                    }
-                }))
-                present(alert, animated: true)
-            } else {
-                deviceManager.loopManager.mutateSettings { settings in
-                    settings.clearOverride(matching: .preMeal)
-                }
-            }
-        } else {
-            presentPreMealModeAlertController()
-        }
-    }
-    
-    func presentPreMealModeAlertController() {
-        let vc = UIAlertController(premealDurationSelectionHandler: { duration in
-            let startDate = Date()
-
-            guard self.workoutMode != true else {
-                // allow cell animation when switching between presets
-                self.deviceManager.loopManager.mutateSettings { settings in
-                    settings.clearOverride()
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.deviceManager.loopManager.mutateSettings { settings in
-                        settings.enablePreMealOverride(at: startDate, for: duration)
-                    }
-                }
-                return
-            }
-
-            self.deviceManager.loopManager.mutateSettings { settings in
-                settings.enablePreMealOverride(at: startDate, for: duration)
-            }
-        })
-
-        present(vc, animated: true, completion: nil)
     }
 
     func presentCustomPresets(confirm: Bool = true) {

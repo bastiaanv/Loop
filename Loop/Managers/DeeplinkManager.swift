@@ -11,7 +11,7 @@ import UIKit
 enum Deeplink: String, CaseIterable {
     case carbEntry = "carb-entry"
     case bolus = "manual-bolus"
-    case preMeal = "pre-meal-preset"
+//    case preMeal = "pre-meal-preset"
     case customPresets = "custom-presets"
     
     init?(url: URL?) {
